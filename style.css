@@ -1,5 +1,7 @@
 /* 1. Reset / global styles */
-box-sizing: border-box;
+* {
+    box-sizing: border-box;
+}
 :root {
     --background: #fff6e5;
     --surface: #fffaf0;
@@ -98,5 +100,48 @@ border-radius: 8px;
     outline: 3px solid var(--coin);
 }
 /* 8. Coin jar */
+.coinJar {
+    min-height: 100px;
+    text-align: center;
+    border: 2px solid var(--coin);
+}
 
+.coinJar h2 {
+    margin: 0;
+}
 /* 9. Responsive design */
+.coinJar::after {
+    content: '';
+    display: block;
+    clear: both;
+    width: 80px;
+    margin: 20px 0 auto;
+    padding: 25px 10px;
+    background-color: #fff2cc;
+    border: 3px solid var(--coin);
+    border-radius: 10px 10px 25px 25px;
+
+    font-size: 35px;
+}
+/*line 126 to 146 was entirely written by ai to add mobile experience */
+@media (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
+
+  section {
+    padding: 20px;
+  }
+
+  #timerDisplay {
+    font-size: 55px;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .controls button {
+    width: 100%;
+  }
+}
