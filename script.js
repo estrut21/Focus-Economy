@@ -4,12 +4,14 @@ const startButton = document.getElementById('startButton');
 const pauseButton = document.getElementById('pauseButton');
 const resetButton = document.getElementById('resetButton');
 const coinBalance = document.getElementById('coinBalance');
+const coinsInJar = document.getElementById('coinsInJar');
 
 // 2. Set up the timer and coin balance
 const startingTime = 25 * 60;
 let timeRemaining = startingTime;
 let timer = null;
 let coins = Number(localStorage.getItem('coins')) || 0;
+let completedSessions = Number(localStorage.getItem('completedSessions')) || 0;
 
 // 3. Update what the user sees
 function updateTimerDisplay() {
@@ -30,6 +32,24 @@ function updateCoinBalance() {
 function updateButtons(isRunning) {
     startButton.disabled = isRunning;
     pauseButton.disabled = !isRunning;
+}
+
+function addCoinToJar() {
+    const coinImage = document.createElement('img');
+
+    coinImage.src = 'assets/asset1.jpg';
+    coinImage.alt = 'Earned coin';
+    coinImage.classList.add('coinImage');
+
+    coinsInJar.appendChild(coinImage);
+}
+
+function showCoinsInJar() {
+    coinsInJar.innerHTML = '';
+
+    for (let i = 0; i < completedSessions; i++) {
+        addCoinToJar();
+    }
 }
 
 // 4. Start the timer
@@ -69,45 +89,17 @@ function completeSession() {
     pauseTimer();
 
     coins += 10;
+    completedSessions++;
+
+    localStorage.setItem('completedSessions', completedSessions);
+
     updateCoinBalance();
+    showCoinsInJar();
 
     timeRemaining = startingTime;
     updateTimerDisplay();
 
     alert('Session complete! You earned 10 coins!');
-
-    const coinsInJar = document.getElementById('coinsInJar');
-    let completedSessions =
-    Number(localStorage.getItem('completedSessions')) || 0;
-    function addCoinToJar(coinNumber) {
-        coinImage.src = 'assets/asset1.jpg';
-        coinImage.alt = 'Earned Coin';
-        coinImage.classList.add('coinImage');
-        const column = coinNumber % 4;
-        const row = Math.floor(coinNumber / 4);
-        coinImage.style.left = `${column * 38}px`;
-        coinImage.style.bottom = `${row * 16}px`;
-        coinsInJar.appendChild(coinImage);
-        function updateCoinJar() {
-            coinsInJar.innerHTML = '';
-            for (let i = 0; i < completedSessions; i++) {
-                addCoinToJar(i);
-            }
-            completedSessions++;
-            localStorage.setItem('completedSessions', completedSessions);
-        }
-        updateCoinJar();
-        function completeSession() {
-            pauseTimer();
-            coins += 10;
-            completedSessions++;
-            localStorage.setItem('completedSessions', completedSessions);
-            updateCoinBalance();
-            updateCoinJar();
-            timeRemaining = startingTime;
-            updateTimerDisplay();
-            alert('Session complete! You earned 10 coins!');
-        }
 }
 
 // 8. Make the buttons respond to clicks
@@ -118,4 +110,5 @@ resetButton.addEventListener('click', resetTimer);
 // 9. Show the starting values when the page loads
 updateTimerDisplay();
 updateCoinBalance();
+showCoinsInJar();
 updateButtons(false);

@@ -126,11 +126,19 @@ border-radius: 8px;
 
 #coinsInJar {
     position: absolute;
-    inset: 0;
+    left: 35px;
+    bottom: 30px;
+    width: 150px;
+    height: 160px;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    align-content: flex-start;
+    overflow: hidden;
 }
+
 .coinImage {
-    position: absolute;
-    width: 45px;
+    width: 40px;
     height: auto;
     mix-blend-mode: multiply;
 }
