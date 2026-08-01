@@ -111,14 +111,29 @@ border-radius: 8px;
     margin: 0;
 }
 /* Coin image */
-.coinImage {
-    display: block;
-    width: 140px;
-    height: auto;
+.jar {
+    position: relative;
+    width: 220px;
     margin: 20px auto 0;
+}
+
+.jarImage {
+    display: block;
+    width: 100%;
+    height: auto;
     mix-blend-mode: multiply;
 }
 
+#coinsInJar {
+    position: absolute;
+    inset: 0;
+}
+.coinImage {
+    position: absolute;
+    width: 45px;
+    height: auto;
+    mix-blend-mode: multiply;
+}
 /* 9. Responsive design */
 /*line 126 to 146 was entirely written by ai to add mobile experience */
 @media (max-width: 600px) {

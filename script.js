@@ -75,6 +75,39 @@ function completeSession() {
     updateTimerDisplay();
 
     alert('Session complete! You earned 10 coins!');
+
+    const coinsInJar = document.getElementById('coinsInJar');
+    let completedSessions =
+    Number(localStorage.getItem('completedSessions')) || 0;
+    function addCoinToJar(coinNumber) {
+        coinImage.src = 'assets/asset1.jpg';
+        coinImage.alt = 'Earned Coin';
+        coinImage.classList.add('coinImage');
+        const column = coinNumber % 4;
+        const row = Math.floor(coinNumber / 4);
+        coinImage.style.left = `${column * 38}px`;
+        coinImage.style.bottom = `${row * 16}px`;
+        coinsInJar.appendChild(coinImage);
+        function updateCoinJar() {
+            coinsInJar.innerHTML = '';
+            for (let i = 0; i < completedSessions; i++) {
+                addCoinToJar(i);
+            }
+            completedSessions++;
+            localStorage.setItem('completedSessions', completedSessions);
+        }
+        updateCoinJar();
+        function completeSession() {
+            pauseTimer();
+            coins += 10;
+            completedSessions++;
+            localStorage.setItem('completedSessions', completedSessions);
+            updateCoinBalance();
+            updateCoinJar();
+            timeRemaining = startingTime;
+            updateTimerDisplay();
+            alert('Session complete! You earned 10 coins!');
+        }
 }
 
 // 8. Make the buttons respond to clicks
